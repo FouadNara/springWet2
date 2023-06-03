@@ -2,12 +2,19 @@
 #define RECORDS_COMPANY_H
 
 #include "utilesWet2.h"
+#include "AVLtree.h"
+#include "hashtable.h"
 
 
 
 class RecordsCompany {
   private:
-    // todo
+    //AVLtree<?id ordered?> club_members_tree;
+    // Hashtable customers;
+    int* copies_num;
+    // array for flipped trees?
+    int different_records_num;
+
   public:
     RecordsCompany();
     ~RecordsCompany();
