@@ -1,6 +1,6 @@
 #include "AVLHelpers.h"
-using std::cout;
-using std::endl;
+// using std::cout;
+// using std::endl;
 
 int getHeightAux(AVLNode *node)
 {
@@ -19,9 +19,9 @@ int absNum(int num)
     return num >= 0 ? num : (-1) * num;
 }
 
-    AVLNode *newAVLNode(Team* data)
+    AVLNode *newAVLNode(Customer* data)
     {
-        AVLNode *node = new AVLNode(data, data->getTeamID());
+        AVLNode *node = new AVLNode(data, data->getCustomerID());
         return (node);
     }
 

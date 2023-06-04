@@ -29,11 +29,23 @@ StatusType RecordsCompany :: addCostumer(int c_id,int phone)
         return StatusType :: INVALID_INPUT;
     }
 
-    // if c_id already exists
+    Customer* customer_ptr = customers.search(c_id); 
+    if(customer_ptr)
     {
         return StatusType :: ALREADY_EXISTS;
     }
-    //to add : alloctaion error case
+
+    Customer* CustomerToAdd;
+    try
+    {
+        CustomerToAdd = new Customer(c_id, phone);
+        customers.insert(c_id, CustomerToAdd);
+    }
+    catch(const std::exception& e)
+    {
+        return StatusType::ALLOCATION_ERROR;
+    }
+    
     return StatusType::SUCCESS;
 }
 
@@ -43,12 +55,14 @@ Output_t<int> RecordsCompany :: getPhone(int c_id)
     {
         return StatusType :: INVALID_INPUT;
     }
-
-    // to add: c_id does not exit already
+    
+    Customer* customer_ptr = customers.search(c_id); 
+    if(!customer_ptr)
     {
         return StatusType :: DOESNT_EXISTS;
     }
-    int phone_number;
+
+    int phone_number = customer_ptr->getPhoneNumber();
 
     return Output_t<int>(phone_number);
 }
@@ -59,11 +73,29 @@ StatusType RecordsCompany :: makeMember(int c_id)
     {
         return StatusType :: INVALID_INPUT;
     }
-    //to add : if c_id does not exit 
+
+    Customer* customer_ptr = customers.search(c_id); 
+
+    if(!customer_ptr)
     {
         return StatusType :: DOESNT_EXISTS;
     }
-    //to add : alloctaion error case
+
+    if(customer_ptr->isMember())
+    {
+        return StatusType::ALREADY_EXISTS;
+    }
+
+    try
+    {
+        club_members_tree.insert(customer_ptr);
+    }
+    catch(const std::exception& e)
+    {
+        return StatusType::ALLOCATION_ERROR;
+    }
+    
+    customer_ptr->makeMember();
     return StatusType :: SUCCESS;
 } 
 
@@ -74,15 +106,19 @@ Output_t<bool> RecordsCompany ::isMember(int c_id)
         return StatusType :: INVALID_INPUT;
     }
 
-    // to add: c_id does not exit already
+    Customer* customer_ptr = customers.search(c_id); 
+
+    if(!customer_ptr)
     {
         return StatusType :: DOESNT_EXISTS;
     }
-    bool is_member;
+    bool is_member = customer_ptr->isMember();
 
     return Output_t<bool>(is_member);
 }
+ 
 
+//TODO
 StatusType RecordsCompany :: buyRecord(int c_id,int r_id)
 {
     if( c_id < 0 || r_id < 0)
@@ -98,6 +134,8 @@ StatusType RecordsCompany :: buyRecord(int c_id,int r_id)
 
     return StatusType::SUCCESS;
 }
+
+//TODO
 StatusType RecordsCompany :: addPrize(int c_id1,int c_id2,double amount)
 {
     if( c_id1 < 0 || c_id2 < c_id1 || amount <= 0)
@@ -107,22 +145,34 @@ StatusType RecordsCompany :: addPrize(int c_id1,int c_id2,double amount)
     return StatusType :: SUCCESS;
 } 
 
+
 Output_t<double> RecordsCompany :: getExpenses(int c_id)
 {
     if( c_id < 0)
     {
         return StatusType :: INVALID_INPUT;
     }
+    Customer* customer_ptr = customers.search(c_id); 
 
-    // to add: c_id is not member
+    //customer doesn't exist
+    if(!customer_ptr)
     {
         return StatusType :: DOESNT_EXISTS;
     }
+
+    //customer is not club member
+    if(!customer_ptr->isMember())
+    {
+        return StatusType :: DOESNT_EXISTS;
+    }
+
+    //todo: function to calculate expenses (from AVLtree)
     int expenses;
 
     return Output_t<double>(expenses);
 }
 
+//TODO
 StatusType RecordsCompany :: putOnTop(int r_id1,int r_id2)
 {
     if( r_id1 < 0 || r_id2 < 0)
@@ -130,12 +180,12 @@ StatusType RecordsCompany :: putOnTop(int r_id1,int r_id2)
         return StatusType :: INVALID_INPUT;
     }
     
-    if( r_id1 > different_records_num || r_id2 > different_records_num)
+    if( r_id1 >= different_records_num || r_id2 >= different_records_num)
     {
         return StatusType :: DOESNT_EXISTS;
     }
 
-    // if r_id1 or r_id2 already exit 
+    // if r_id1 and r_id2 same group
     {
         return StatusType :: FAILURE;
     }
@@ -143,9 +193,10 @@ StatusType RecordsCompany :: putOnTop(int r_id1,int r_id2)
     return StatusType :: SUCCESS;
 }
 
-StatusType RecordsCompany :: getPlace(int r_id,int *column,int *hight) // leesh heek katben hight :((( n3'yerha wla mmno3?
+//TODO
+StatusType RecordsCompany :: getPlace(int r_id,int *column,int *height) // leesh heek katben hight :((( n3'yerha wla mmno3?
 {
-    if( !(column) || !(hight) || r_id < 0)
+    if( !(column) || !(height) || r_id < 0)
     {
         return StatusType :: INVALID_INPUT;
     }

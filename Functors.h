@@ -1,18 +1,18 @@
 #ifndef FUNCTORS_H_
 #define FUNCTORS_H_
-#include "Team.h"
+//#include "Team.h"
+#include "Customer.h"
 
-
-class TeamID
+class CustomerID
 {
     public:
-    int operator()(const Team* team1, const Team* team2) const
+    int operator()(const Customer* customer1, const Customer* customer2) const
     {
-        if(team1->getTeamID() < team2->getTeamID())
+        if(customer1->getCustomerID() < customer2->getCustomerID())
         {
             return -1;
         }
-        if(team1->getTeamID() > team2->getTeamID())
+        if(customer1->getCustomerID() > customer2->getCustomerID())
         {
             return 1;
         }
@@ -21,23 +21,23 @@ class TeamID
 };
 
 
-class PointlessAbility
-{
-    public:
-    int operator()(const Team* team1, const Team* team2) const
-    {
-        if(team1->getTeamSigma() < team2->getTeamSigma())
-        {
-            return -1;
-        }
-        if(team1->getTeamSigma() > team2->getTeamSigma())
-        {
-            return 1;
-        }
-        TeamID temp;
-        int res = temp(team1,team2);
-        return res;
-    }
-};
+// class PointlessAbility
+// {
+//     public:
+//     int operator()(const Team* team1, const Team* team2) const
+//     {
+//         if(team1->getTeamSigma() < team2->getTeamSigma())
+//         {
+//             return -1;
+//         }
+//         if(team1->getTeamSigma() > team2->getTeamSigma())
+//         {
+//             return 1;
+//         }
+//         TeamID temp;
+//         int res = temp(team1,team2);
+//         return res;
+//     }
+// };
 
 #endif

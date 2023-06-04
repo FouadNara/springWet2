@@ -12,22 +12,28 @@ bool HashTable::isCompressed() const
     return numOfPlayers == size;
 }
 
-Player* HashTable::search(int playerID) const
+Customer* HashTable::search(int customerID) const
 {
-    int index = hash(playerID);
+    int index = hash(customerID);
     if(table[index]->isEmpty())
     {
         return nullptr;
     }
-    Node<Player*>* temp = table[index]->getHead();
-    while(temp)
+
+    AVLNode* customerNode_ptr = table[index]->find_by_id(customerID);
+    if(customerNode_ptr)
     {
-        if(temp->data->getPlayerID() == playerID)
-        {
-            return temp->data;
-        }
-        temp=temp->next;
+        return (customerNode_ptr->data);
     }
+    // Node<Customer*>* temp = table[index]->getHead();
+    // while(temp)
+    // {
+    //     if(temp->data->getCustomerID() == customerID)
+    //     {
+    //         return temp->data;
+    //     }
+    //     temp=temp->next;
+    // }
     return nullptr;
 }
 
@@ -36,10 +42,10 @@ double HashTable::getLoadFactor() const
     return numOfPlayers/size;
 }
 
-void HashTable::insert(int playerID, Player* player)
+void HashTable::insert(int customerID, Customer* customer)
 {
-    int index = hash(playerID);
-    table[index]->insert(player);
+    int index = hash(customerID);
+    table[index]->insert(customer);
     numOfPlayers += 1;
     if(isCompressed())
     {

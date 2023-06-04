@@ -1,6 +1,7 @@
 #ifndef HASHTABLE_H_
 #define HASHTABLE_H_
-#include "Player.h"
+
+#include "AVLtree.h"
 #include <stdio.h>
 #include <iostream>
 using std::cout;
@@ -16,29 +17,29 @@ class HashTable
     public:
     HashTable():size(PRIME),numOfPlayers(0)
     {
-        table = new LinkedList<Player*>*[size];
+        table = new AVLtree<Customer*>*[size];
         for(int i=0;i<size;i++)
         {
-            LinkedList<Player*>* tempList = new LinkedList<Player*>();
-            table[i] = tempList;
+            AVLtree<Customer*>* tempTree = new AVLtree<Customer*>();
+            table[i] = tempTree;
         }
     }
     ~HashTable();
 
     void deleteHash();
 
-    void insert(int playerID, Player* player);
+    void insert(int customerID, Customer* customer);
     int getSize() const;
     double getLoadFactor() const;
 
 
     bool isCompressed() const;
-    Player* search(int playerID) const;
+    Customer* search(int customerID) const;
 
     private:
     int size;
     int numOfPlayers;
-    LinkedList<Player*>** table;
+    AVLtree<Customer*>** table;
 
     //hash function
     int hash(int playerID) const
@@ -51,23 +52,23 @@ class HashTable
     {
         int newSize = 2*size;
 
-        LinkedList<Player*>** tempTable;
-        tempTable = new LinkedList<Player*>*[newSize];
+        AVLtree<Customer*>** tempTable;
+        tempTable = new AVLtree<Customer*>*[newSize];
         for(int i=0;i<newSize;i++)
         {
-            tempTable[i] = new LinkedList<Player*>();
+            tempTable[i] = new AVLtree<Customer*>*();
         }
 
         for(int i=0;i<size;++i)
         {
-            LinkedList<Player*>* list_ptr = table[i];
+            AVLtree<Customer*>* list_ptr = table[i];
             if(table[i]->isEmpty())
             {
                 table[i] = nullptr;
                 delete list_ptr;
                 continue;
             }
-            Node<Player*>* tempHead = list_ptr->getHead();
+            Node<Customer*>* tempHead = list_ptr->getHead();
             while(tempHead)
             {
                 Player* curPlayer_ptr = tempHead->data;

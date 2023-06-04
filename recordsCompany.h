@@ -4,13 +4,13 @@
 #include "utilesWet2.h"
 #include "AVLtree.h"
 #include "hashtable.h"
-
+#include "Functors.h"
 
 
 class RecordsCompany {
   private:
-    //AVLtree<?id ordered?> club_members_tree;
-    // Hashtable customers;
+    AVLtree<CustomerID> club_members_tree;
+    HashTable customers;
     int* copies_num;
     // array for flipped trees?
     int different_records_num;

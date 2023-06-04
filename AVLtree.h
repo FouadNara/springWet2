@@ -1,5 +1,6 @@
 #ifndef AVL_TREE_H_
 #define AVL_TREE_H_
+
 #include <iostream>
 #include <stdio.h>
 using std::cout;
@@ -10,7 +11,7 @@ using std::endl;
     //insert new node recursively
     // return root
     template <typename Compare>
-    AVLNode *insertAux(AVLNode *root, Team* data)
+    AVLNode *insertAux(AVLNode *root, Customer* data)
     {
 
         Compare comp;
@@ -40,7 +41,7 @@ using std::endl;
 
 
     template <typename Compare>
-    AVLNode *deleteNodeAux(AVLNode *root, const Team* toDelete)
+    AVLNode *deleteNodeAux(AVLNode *root, const Customer* toDelete)
     {
         if (root == nullptr)
         {
@@ -85,7 +86,7 @@ using std::endl;
 
     
     template <typename Compare>
-    AVLNode *findAux(AVLNode *tree, const Team* data)
+    AVLNode *findAux(AVLNode *tree, const Customer* data)
     {
         Compare comp;
         if (tree == nullptr || comp(data, tree->data) == 0)
@@ -118,7 +119,7 @@ using std::endl;
     class AVLtree
     {
         private:
-        AVLNode* findParentAux(AVLNode* root, const Team* child)
+        AVLNode* findParentAux(AVLNode* root, const Customer* child)
         {
             if(root->left_son == nullptr && root->right_son == nullptr)
             {
@@ -181,22 +182,22 @@ using std::endl;
             return getHeightAux(root);
         }
 
-        void rightRotateAt(const Team* data)
+        void rightRotateAt(const Customer* data)
         {
             root = rightRotateAux(findAux<Compare>(root, data));
         }
 
-        void leftRotateAt(const Team* data)
+        void leftRotateAt(const Customer* data)
         {
             root = leftRotateAux(findAux<Compare>(root, data));
         }
 
-        int getBalanceFactorAt(const Team* data)
+        int getBalanceFactorAt(const Customer* data)
         {
             return getBalanceFactorAux(findAux<Compare>(root, data));
         }
 
-        void rebalanceAt(const Team* data)
+        void rebalanceAt(const Customer* data)
         {
             root = rebalanceAux(findAux<Compare>(root, data));
         }
@@ -211,7 +212,7 @@ using std::endl;
             return max;
         }
         
-        AVLNode *find(const Team* data) 
+        AVLNode *find(const Customer* data) 
         {
             return findAux<Compare>(root, data);
         }
@@ -221,7 +222,7 @@ using std::endl;
             return find_by_idAux(root, id);
         }
 
-        void insert(Team* data)
+        void insert(Customer* data)
         {
             if(!find(data))
             {
@@ -231,7 +232,7 @@ using std::endl;
             max=getMaxNodeAux(root);
         }
 
-        void remove(const Team* toDelete)
+        void remove(const Customer* toDelete)
         {
             if(find(toDelete))
             {
@@ -305,7 +306,7 @@ using std::endl;
             }
             if(current_index == i-1)
             {
-                return root->data->getTeamID();
+                return root->data->getCustomerID();
             }
             if(current_index < i-1)
             {

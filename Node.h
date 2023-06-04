@@ -1,8 +1,10 @@
 #ifndef NODE_H_
 #define NODE_H_
 
+//I THINK IT IS BETTER TO WRITE IT AGAIN...
+
 #include "HashTable.h"
-class Team;
+//class Team;
 
 //Node for inverted tree
 class invertedNode
@@ -31,12 +33,9 @@ class invertedNode
     
 
     private:
-    bool eliminated;
     invertedNode* parent; 
     Player* player_ptr;
     Team* team_ptr;
-    int numOfMatches; //num of matches for node
-    permutation_t partial_spirit;
 };
 
 #endif // NODE_H_

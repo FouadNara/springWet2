@@ -2,7 +2,8 @@
 #define AVLHELPERS_H_
 
 #include <assert.h>
-#include "Functors.h"
+#include "Customer.h"
+//#include "Functors.h"
 
 int maxNum(int a, int b);
 
@@ -10,14 +11,14 @@ int absNum(int num);
 
     struct AVLNode
     {
-        Team* data;
+        Customer* data;
         AVLNode *left_son;
         AVLNode *right_son;
         AVLNode *father;
         int height;
         int id;
         int extra;
-        explicit AVLNode(Team* team, int id) : data(team), left_son(nullptr), right_son(nullptr), father(nullptr), height(0), id(id), extra(1) {}
+        explicit AVLNode(Customer* customer, int id) : data(customer), left_son(nullptr), right_son(nullptr), father(nullptr), height(0), id(id), extra(1) {}
         int getID() const
         {
             return id;
@@ -27,7 +28,7 @@ int absNum(int num);
 
     int getHeightAux(AVLNode *node);
 
-    AVLNode *newAVLNode(Team* data);
+    AVLNode *newAVLNode(Customer* data);
 
     AVLNode *rightRotateAux(AVLNode *root);
 
@@ -98,6 +99,6 @@ int absNum(int num);
 
     AVLNode* cloneAux(AVLNode* to_clone, AVLNode* father = nullptr);
 
-    AVLNode *createTreeFromSortedArrayAux(Team* arr[],int start, int end);
+    AVLNode *createTreeFromSortedArrayAux(Customer* arr[],int start, int end);
 
 #endif
