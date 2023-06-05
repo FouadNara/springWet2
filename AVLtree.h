@@ -114,7 +114,6 @@ using std::endl;
         }
     }
 
-
     template <typename Compare>
     class AVLtree
     {

@@ -2,6 +2,7 @@
 #define HASHTABLE_H_
 
 #include "AVLtree.h"
+#include "Functors.h"
 #include <stdio.h>
 #include <iostream>
 using std::cout;
@@ -17,10 +18,10 @@ class HashTable
     public:
     HashTable():size(PRIME),numOfPlayers(0)
     {
-        table = new AVLtree<Customer*>*[size];
+        table = new AVLtree<CustomerID>*[size];
         for(int i=0;i<size;i++)
         {
-            AVLtree<Customer*>* tempTree = new AVLtree<Customer*>();
+            AVLtree<CustomerID>* tempTree = new AVLtree<CustomerID>();
             table[i] = tempTree;
         }
     }
@@ -36,10 +37,31 @@ class HashTable
     bool isCompressed() const;
     Customer* search(int customerID) const;
 
+    class RehashTreeFunctor
+    {
+        public:
+        RehashTreeFunctor(int newSize, AVLtree<CustomerID>** tempTable):newSize(newSize), tempTable(tempTable)
+        {}
+        
+        void operator()(AVLNode* customer)
+        {
+            int newIndex = calcNewIndex(customer->data);
+            tempTable[newIndex]->insert(customer->data);
+        }
+
+        int calcNewIndex(Customer* customer)
+        {
+            return customer->getCustomerID() % newSize;
+        }
+        private:
+        int newSize;
+        AVLtree<CustomerID>** tempTable;
+    };
+
     private:
     int size;
     int numOfPlayers;
-    AVLtree<Customer*>** table;
+    AVLtree<CustomerID>** table;
 
     //hash function
     int hash(int playerID) const
@@ -52,38 +74,33 @@ class HashTable
     {
         int newSize = 2*size;
 
-        AVLtree<Customer*>** tempTable;
-        tempTable = new AVLtree<Customer*>*[newSize];
+        AVLtree<CustomerID>** tempTable;
+        tempTable = new AVLtree<CustomerID>*[newSize];
         for(int i=0;i<newSize;i++)
         {
-            tempTable[i] = new AVLtree<Customer*>*();
+            tempTable[i] = new AVLtree<CustomerID>();
         }
 
         for(int i=0;i<size;++i)
         {
-            AVLtree<Customer*>* list_ptr = table[i];
+            AVLtree<CustomerID>* tree_ptr = table[i];
             if(table[i]->isEmpty())
             {
                 table[i] = nullptr;
-                delete list_ptr;
+                delete tree_ptr;
                 continue;
             }
-            Node<Customer*>* tempHead = list_ptr->getHead();
-            while(tempHead)
-            {
-                Player* curPlayer_ptr = tempHead->data;
-                tempHead->data = nullptr;
-                int newIndex = curPlayer_ptr->getPlayerID() % newSize;
-                tempTable[newIndex]->insert(curPlayer_ptr);
-                tempHead=tempHead->next;
-            }
+
+            RehashTreeFunctor func(newSize, tempTable);
+            table[i]->inOrder(func);
+            
+            table[i]->treeClear();
             table[i] = nullptr;
-            list_ptr->clearList();
-            delete list_ptr;
+            delete tree_ptr;
         }
 
         delete[] table;
-        table = new LinkedList<Player*>*[newSize];
+        table = new AVLtree<CustomerID>*[newSize];
         for(int i=0;i<newSize;++i)
         {
             table[i] = tempTable[i];

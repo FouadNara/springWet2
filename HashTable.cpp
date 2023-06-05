@@ -25,15 +25,7 @@ Customer* HashTable::search(int customerID) const
     {
         return (customerNode_ptr->data);
     }
-    // Node<Customer*>* temp = table[index]->getHead();
-    // while(temp)
-    // {
-    //     if(temp->data->getCustomerID() == customerID)
-    //     {
-    //         return temp->data;
-    //     }
-    //     temp=temp->next;
-    // }
+
     return nullptr;
 }
 
@@ -57,24 +49,12 @@ void HashTable::deleteHash()
 {
     for(int i=0;i<getSize();i++)
     {
-        LinkedList<Player*>* list = table[i];
-        if(list)
+        AVLtree<CustomerID>* tree = table[i];
+        if(tree)
         {
-            Node<Player*>* temp = list->getHead();
-            while(temp)
-            {
-                Player* player_ptr = temp->data;
-                invertedNode* playerNode = player_ptr->getPlayerNode();
-                playerNode->setParent(nullptr);
-                playerNode->nullifyPlayer();
-                player_ptr->setPlayerNode(nullptr);
-                delete playerNode;
-                delete player_ptr;
-                temp = temp->next;
-            }
+            tree->deleteDataClear();
             table[i] = nullptr;
-            list->clearList();
-            delete list;
+            delete tree;
         }
     }
     delete[] table;
