@@ -17,7 +17,24 @@ StatusType RecordsCompany :: newMonth(int *records_stocks,int number_of_records)
         return StatusType :: INVALID_INPUT;
     }
 
-    //to add : alloctaion error case
+    //should delete previous recordNodes?
+
+    try
+    {
+        recordNodesArr = new invertedNode*[number_of_records];
+
+        for(int i=0;i<number_of_records;i++)
+        {
+            Record* record = new Record(i);
+            recordNodesArr[i] = new invertedNode(record);
+            invertedNode* tempNode = recordNodesArr[i];
+            record->setRecordNode(tempNode);
+        }
+    }
+    catch(const std::exception& e)
+    {
+        return StatusType::ALLOCATION_ERROR;
+    }
 
     return StatusType :: SUCCESS;
 }
@@ -126,11 +143,20 @@ StatusType RecordsCompany :: buyRecord(int c_id,int r_id)
         return StatusType :: INVALID_INPUT;
     }
 
-    if( r_id >= different_records_num)
+    Customer* customer = customers.search(c_id);
+
+    if((!customer) || r_id >= different_records_num)
     {
-        // or c_id does not exist
         return StatusType :: DOESNT_EXISTS;
     }
+
+    Record* record = recordNodesArr[r_id]->getRecord();
+    if(customer->isMember())
+    {
+        int prevBuyers = record->getNumBuyers(); 
+        customer->addMonthlyExpenses(100 + prevBuyers);
+    }
+    record->buy();
 
     return StatusType::SUCCESS;
 }
@@ -194,7 +220,7 @@ StatusType RecordsCompany :: putOnTop(int r_id1,int r_id2)
 }
 
 //TODO
-StatusType RecordsCompany :: getPlace(int r_id,int *column,int *height) // leesh heek katben hight :((( n3'yerha wla mmno3?
+StatusType RecordsCompany :: getPlace(int r_id,int *column,int *height)
 {
     if( !(column) || !(height) || r_id < 0)
     {

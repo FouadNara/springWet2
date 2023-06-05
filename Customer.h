@@ -8,17 +8,19 @@ class Customer
 {
     
     public:
-        Customer(int customer_id, int phone_number)
-        :customer_id(customer_id), phone_number(phone_number), expenses(0), undeserved_prize(0), is_member(false){}
-        ~Customer() = default;//?
+    Customer(int customer_id, int phone_number)
+    :customer_id(customer_id), phone_number(phone_number), expenses(0), undeserved_prize(0), is_member(false){}
+    ~Customer() = default;//?
 
-        int getCustomerID() const;
-        int getPhoneNumber() const;
-        int getExpenses() const;
-        int getUndeservedPrize() const;
-        bool isMember() const;
+    int getCustomerID() const;
+    int getPhoneNumber() const;
+    int getExpenses() const;
+    int getUndeservedPrize() const;
+    bool isMember() const;
 
-        void makeMember();
+    void makeMember();
+    void addMonthlyExpenses(int toAdd);
+
     
     private:
     int customer_id;

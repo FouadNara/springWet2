@@ -29,3 +29,8 @@ void Customer::makeMember()
 {
     is_member = true;
 }
+
+void Customer::addMonthlyExpenses(int toAdd)
+{
+    expenses += toAdd;
+}

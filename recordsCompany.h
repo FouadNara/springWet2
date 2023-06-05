@@ -5,14 +5,15 @@
 #include "AVLtree.h"
 #include "hashtable.h"
 #include "Functors.h"
+#include "Node.h"
 
 
 class RecordsCompany {
   private:
     AVLtree<CustomerID> club_members_tree;
     HashTable customers;
+    invertedNode** recordNodesArr;
     int* copies_num;
-    // array for flipped trees?
     int different_records_num;
 
   public:

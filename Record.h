@@ -12,8 +12,12 @@ class Record{
     int getNumBuyers() const;
     invertedNode* getRecordNode();
     const invertedNode* getRecordNode() const;
-
+    int getRecordHeight() const;
+    int getRecordColumn() const;
+    
     void buy(); 
+    void setRecordNode(invertedNode* recNode);
+
 
 
 

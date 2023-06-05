@@ -24,3 +24,8 @@ void Record::buy()
 {
     numBuyers+=1;
 }
+
+void Record::setRecordNode(invertedNode* recNode)
+{
+    recordNode = recNode;
+}
