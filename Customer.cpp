@@ -27,6 +27,7 @@ bool Customer::isMember() const
 
 void Customer::makeMember()
 {
+    // we 
     is_member = true;
 }
 

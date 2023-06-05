@@ -13,7 +13,6 @@ class RecordsCompany {
     AVLtree<CustomerID> club_members_tree;
     HashTable customers;
     invertedNode** recordNodesArr;
-    int* copies_num;
     int different_records_num;
 
   public:

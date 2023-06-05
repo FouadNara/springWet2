@@ -10,7 +10,7 @@ class Customer
     public:
     Customer(int customer_id, int phone_number)
     :customer_id(customer_id), phone_number(phone_number), expenses(0), undeserved_prize(0), is_member(false){}
-    ~Customer() = default;//?
+    ~Customer() = default;//? yes
 
     int getCustomerID() const;
     int getPhoneNumber() const;

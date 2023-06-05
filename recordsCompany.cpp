@@ -36,6 +36,7 @@ StatusType RecordsCompany :: newMonth(int *records_stocks,int number_of_records)
         return StatusType::ALLOCATION_ERROR;
     }
 
+    different_records_num = number_of_records;
     return StatusType :: SUCCESS;
 }
 
@@ -103,6 +104,8 @@ StatusType RecordsCompany :: makeMember(int c_id)
         return StatusType::ALREADY_EXISTS;
     }
 
+    // ymkn konna mn2dr kol el astor belfunction l7d hon b RecordsCompany :: isMember(int c_id)
+    // l2no same returned values
     try
     {
         club_members_tree.insert(customer_ptr);
@@ -113,10 +116,12 @@ StatusType RecordsCompany :: makeMember(int c_id)
     }
     
     customer_ptr->makeMember();
+
+    // we should update undeserved_prize here
     return StatusType :: SUCCESS;
 } 
 
-Output_t<bool> RecordsCompany ::isMember(int c_id)
+Output_t<bool> RecordsCompany :: isMember(int c_id)
 {
    if( c_id < 0)
     {
@@ -193,6 +198,7 @@ Output_t<double> RecordsCompany :: getExpenses(int c_id)
     }
 
     //todo: function to calculate expenses (from AVLtree)
+    // hoon lazim ntr7 undeserved prize
     int expenses;
 
     return Output_t<double>(expenses);
