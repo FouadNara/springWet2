@@ -35,7 +35,7 @@ StatusType RecordsCompany :: newMonth(int *records_stocks,int number_of_records)
     {
         return StatusType::ALLOCATION_ERROR;
     }
-    club_members_tree->inOrder(ResetClubMembers());
+    club_members_tree.inOrder(ResetClubMembers());
     different_records_num = number_of_records;
     return StatusType :: SUCCESS;
 }

@@ -19,7 +19,7 @@ class RecordsCompany {
   struct ResetClubMembers
   {
     public:
-    void operator()(AVLNode<Customer *> *root)
+    void operator()(AVLNode *root)
     {
       if (root)
       {
