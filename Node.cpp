@@ -32,7 +32,7 @@ invertedNode* invertedNode :: findRoot()
         temp = temp->getParent();        
     }
     // msh mt2kde sho lazim n3'yer bel kivots
-    return 
+    return temp;
 
 }
 
@@ -49,4 +49,19 @@ int invertedNode :: getMinHeightID() const
 void invertedNode :: setMinHeightID(int value)
 {
     min_height_id = value;
+}
+
+int invertedNode :: getTotalRecords() const
+{
+    return total_records;
+}
+
+void invertedNode :: setHeight(int value) 
+{
+    height = value;
+}
+
+int invertedNode :: getHeight() const
+{
+    return height;
 }

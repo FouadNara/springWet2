@@ -18,7 +18,7 @@ using std::endl;
         if (root == nullptr)
             return (newAVLNode(data));
 
-        //root->extra += 1;
+        //root->extra += 1;  old extra
         if (comp(data, root->data) < 0)
         {
             root->left_son = insertAux<Compare>(root->left_son, data);
@@ -227,7 +227,6 @@ using std::endl;
             addExtraAux(root, customerID, amount); //customerID should exist in tree!
         }
 
-        //twane bde a3ml push
         void addExtraAux(AVLNode *tree, int id, double amount) 
         { 
             int rightTurns = 0;
@@ -360,6 +359,33 @@ using std::endl;
             }
             // return successor, if any
             return succ;
+        }// bde aroo7, ontop ymkn done 
+        
+        double calcExtra(Customer* data)
+        {
+            return calcExtraAux(root, data);
+        }
+        
+        double calcExtraAux(AVLNode *root, Customer* data)
+        {
+            double sumExtra = 0;
+            AVLNode* temp = root;
+            int id = data->getCustomerID();
+            while(temp && temp->getID() != id)
+            {
+                sumExtra += temp->extra;
+
+                if(temp->getID() > id)
+                {
+                    temp = temp->left_son;
+                }
+                else if(temp->getID() < id)
+                {
+                    temp = temp->right_son;
+                }
+            }
+
+            return sumExtra + temp->extra;
         }
         ////////////////
 
@@ -371,6 +397,7 @@ using std::endl;
             }  
             root = insertAux<Compare>(root, data);
             max=getMaxNodeAux(root);
+            double sumExtra = calcExtraAux(root, data);
         }
 
         void remove(const Customer* toDelete)

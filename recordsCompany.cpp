@@ -2,12 +2,23 @@
 
 RecordsCompany :: RecordsCompany()
 {
-
+    //shu lmfrud hon ykun? 💀💀
+    //el newMonth heye zy constructor la?
 }
 
 RecordsCompany :: ~RecordsCompany()
 {
+    club_members_tree.treeClear(); //deletes only nodes
+    customers.deleteHash(); //deletes all customers
     
+    for(int i=0;i<different_records_num;i++)
+    {
+        invertedNode* curNode = recordNodesArr[i];
+        Record* curRecord = curNode->getRecord();
+        delete curRecord;
+        delete curNode;
+    }
+    delete[] recordNodesArr;
 }
 
 StatusType RecordsCompany :: newMonth(int *records_stocks,int number_of_records)
@@ -140,7 +151,6 @@ Output_t<bool> RecordsCompany :: isMember(int c_id)
 }
  
 
-//TODO
 StatusType RecordsCompany :: buyRecord(int c_id,int r_id)
 {
     if( c_id < 0 || r_id < 0)
@@ -218,13 +228,14 @@ Output_t<double> RecordsCompany :: getExpenses(int c_id)
     }
 
     //todo: function to calculate expenses (from AVLtree)
+    double prizeAmount = club_members_tree.calcExtra(customer_ptr);
     // hoon lazim ntr7 undeserved prize
     int expenses;
 
     return Output_t<double>(expenses);
 }
 
-//TODO
+
 StatusType RecordsCompany :: putOnTop(int r_id1,int r_id2)
 {
     if( r_id1 < 0 || r_id2 < 0)
@@ -253,7 +264,10 @@ StatusType RecordsCompany :: putOnTop(int r_id1,int r_id2)
 
     invertedNode* captain;
 	invertedNode* exCaptain;
-    //🍵 ana break
+
+    int captain_new_height;
+    int exCaptain_new_height;
+
     if(first_size > sec_size)
     {
         captain = first_parent;
@@ -261,12 +275,21 @@ StatusType RecordsCompany :: putOnTop(int r_id1,int r_id2)
         
         captain->setMinHeightID(exCaptain->getMinHeightID());
 
+        captain_new_height = exCaptain->getTotalRecords() + captain->getHeight();
+        exCaptain_new_height = exCaptain->getHeight() - captain_new_height;
+
     }
     else
     {
         captain = sec_parent;
         exCaptain = first_parent;
+
+        captain_new_height = captain->getHeight();
+        exCaptain_new_height = exCaptain->getHeight() + captain->getTotalRecords() - captain_new_height;
     }
+
+    captain->setHeight(captain_new_height);
+    exCaptain->setHeight(exCaptain_new_height);
 
     return StatusType :: SUCCESS;
 }

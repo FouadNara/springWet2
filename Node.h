@@ -1,11 +1,7 @@
 #ifndef NODE_H_
 #define NODE_H_
 
-//I THINK IT IS BETTER TO WRITE IT AGAIN...
-
-//#include "HashTable.h"
 #include "Record.h"
-//class Team;
 
 //Node for inverted tree
 class invertedNode
@@ -17,12 +13,15 @@ class invertedNode
     bool isRoot() const;
     int getTotalNodes() const;
     int getMinHeightID() const;
+    int getTotalRecords() const;
+    int getHeight() const;
     Record* getRecord();
     invertedNode* findRoot();
     invertedNode* getParent();
 
     ///////////// SETTERS ////////////
     void setMinHeightID(int value);
+    void setHeight(int value);
 
     private:
     Record* record;
