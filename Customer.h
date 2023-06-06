@@ -20,6 +20,7 @@ class Customer
 
     void makeMember();
     void addMonthlyExpenses(int toAdd);
+    void resetMember(); // we call it just for club members
 
     
     private:

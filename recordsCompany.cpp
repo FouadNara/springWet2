@@ -17,7 +17,7 @@ StatusType RecordsCompany :: newMonth(int *records_stocks,int number_of_records)
         return StatusType :: INVALID_INPUT;
     }
 
-    //should delete previous recordNodes?
+    //should delete previous recordNodes? i think yes
 
     try
     {
@@ -35,7 +35,7 @@ StatusType RecordsCompany :: newMonth(int *records_stocks,int number_of_records)
     {
         return StatusType::ALLOCATION_ERROR;
     }
-
+    club_members_tree->inOrder(ResetClubMembers());
     different_records_num = number_of_records;
     return StatusType :: SUCCESS;
 }
@@ -217,7 +217,13 @@ StatusType RecordsCompany :: putOnTop(int r_id1,int r_id2)
         return StatusType :: DOESNT_EXISTS;
     }
 
-    // if r_id1 and r_id2 same group
+    invertedNode* first_record = recordNodesArr[r_id1];
+    invertedNode* sec_record = recordNodesArr[r_id2];
+
+    
+
+
+    // if r_id1 and r_id2 same 
     {
         return StatusType :: FAILURE;
     }

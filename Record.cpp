@@ -22,7 +22,7 @@ const invertedNode* Record::getRecordNode() const
 
 void Record::buy()
 {
-    numBuyers+=1;
+    numBuyers += 1;
 }
 
 void Record::setRecordNode(invertedNode* recNode)

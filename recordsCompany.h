@@ -15,6 +15,21 @@ class RecordsCompany {
     invertedNode** recordNodesArr;
     int different_records_num;
 
+    // Functor for remove_group
+  struct ResetClubMembers
+  {
+    public:
+    void operator()(AVLNode<Customer *> *root)
+    {
+      if (root)
+      {
+        Customer *member = root->data;
+        member->resetMember();
+      }
+    }
+  };
+
+
   public:
     RecordsCompany();
     ~RecordsCompany();

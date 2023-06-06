@@ -35,3 +35,17 @@ void Customer::addMonthlyExpenses(int toAdd)
 {
     expenses += toAdd;
 }
+
+void Customer :: resetMember()
+{
+    if(is_member)
+    {
+        expenses = 0;
+        undeserved_prize = 0;
+    }
+    else
+    {
+        //ERROR
+    }
+
+}
