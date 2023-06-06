@@ -5,9 +5,9 @@
 
 class Record{
     public:
-    Record(int r_id): record_id(r_id), numBuyers(0),recordNode(nullptr) {}
+    Record(int r_id, int copies): record_id(r_id), copies(copies), numBuyers(0), recordNode(nullptr) {}
     ~Record() = default;
-
+    // ymkn n7taj c'tor bo5d value l copies, 3shan newmonth
     int getRecordID() const;
     int getNumBuyers() const;
     invertedNode* getRecordNode();
@@ -23,6 +23,7 @@ class Record{
 
     private:
     int record_id;
+    int copies; // i think we need it for height, not sure  
     int numBuyers;
     invertedNode* recordNode;
 };

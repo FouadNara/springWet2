@@ -21,7 +21,8 @@ class invertedNode
     Record* record;
     invertedNode* parent;
     int height;
-    int column; //column is the r_id with minimum height!
+    int column; //column is the r_id with minimum height!,
+    // height and column bkono updated bs bel root s7?
 };
 
 #endif // NODE_H_

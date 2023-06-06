@@ -25,7 +25,7 @@ StatusType RecordsCompany :: newMonth(int *records_stocks,int number_of_records)
 
         for(int i=0;i<number_of_records;i++)
         {
-            Record* record = new Record(i);
+            Record* record = new Record(i,records_stocks[i]);
             recordNodesArr[i] = new invertedNode(record);
             invertedNode* tempNode = recordNodesArr[i];
             record->setRecordNode(tempNode);
