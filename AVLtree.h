@@ -18,7 +18,7 @@ using std::endl;
         if (root == nullptr)
             return (newAVLNode(data));
 
-        root->extra += 1;
+        //root->extra += 1;
         if (comp(data, root->data) < 0)
         {
             root->left_son = insertAux<Compare>(root->left_son, data);
@@ -52,7 +52,7 @@ using std::endl;
         AVLNode * overtake_res =nullptr;
         while(root && comp(toDelete, root->data) != 0)
         {
-            root->extra -= 1;
+            //root->extra -= 1;
             if (comp(toDelete, root->data) < 0)
             {
                 root=root->left_son;
@@ -221,6 +221,148 @@ using std::endl;
             return find_by_idAux(root, id);
         }
 
+        ///////////////////////
+        void addExtra(int customerID, double amount)
+        {
+            addExtraAux(root, customerID, amount); //customerID should exist in tree!
+        }
+
+        //twane bde a3ml push
+        void addExtraAux(AVLNode *tree, int id, double amount) 
+        { 
+            int rightTurns = 0;
+            int leftTurns = 0;
+
+            AVLNode* curNode = tree;
+            while(curNode->getID() != id)
+            {
+                while(curNode->getID() < id)
+                {
+                    if(rightTurns == 0)
+                    {
+                        curNode->extra += amount;
+                    }
+                    curNode = curNode->right_son;  //cannot be nullptr!
+                    rightTurns += 1;
+                    leftTurns = 0;
+                }
+                while(curNode->getID() > id)
+                {
+                    if(rightTurns != 0)
+                    {
+                        curNode->extra -= amount;
+                    }
+                    curNode = curNode->left_son;  //cannot be nullptr!
+                    leftTurns += 1;
+                    rightTurns = 0;
+                }
+            }
+
+            if(rightTurns == 0)
+            {
+                curNode->extra += amount;
+            }
+            if(curNode->right_son)
+            {
+                curNode->right_son->extra -= amount;
+            }
+        }
+
+        AVLNode *findPredecessor(int id)
+        {
+            // base case
+            AVLNode *temp = root;
+            if (temp == nullptr)
+            {
+                return nullptr;
+            }
+            AVLNode *pred = nullptr;
+            while (1)
+            {
+                // if the given key is less than the temp node, visit the left subtree
+                if (id > temp->getID())
+                {
+                    // update predecessor to the current node before visiting left subtree
+                    pred = temp;
+                    temp = temp->right_son;
+                }
+                // if the given key is more than the temp node, visit the right subtree
+                else if (id < temp->getID())
+                {
+                    temp = temp->left_son;
+                }
+                // if a node with the desired value is found, the predecessor is the maximum
+                // value node in its left subtree (if any)
+                else
+                {
+                    if (temp->left_son)
+                    {
+                        pred = getMaxNodeAux(temp->left_son);
+                        if (pred == nullptr)
+                        {
+                            pred = temp;
+                        }
+                    }
+                    break;
+                }
+                // if the key doesn't exist in the binary tree, return next greater node
+                if (!temp)
+                {
+                    return pred;
+                }
+            }
+            // return predecessor, if any
+            return pred;
+        }
+
+        AVLNode *findSuccessor(int id)
+        {
+            // base case
+            AVLNode *temp = root;
+            if (temp == nullptr)
+            {
+                return nullptr;
+            }
+            AVLNode *succ = nullptr;
+            while (1)
+            {
+                // if the given key is less than the temp node, visit the left subtree
+                if (id < temp->getID())
+                {
+                    // update successor to the current node before visiting left subtree
+                    succ = temp;
+                    temp = temp->left_son;
+                }
+                // if the given key is more than the temp node, visit the right subtree
+                else if (id > temp->getID())
+                {
+                    temp = temp->right_son;
+                }
+                // if a node with the desired value is found, the successor is the minimum
+                // value node in its right subtree (if any)
+                else
+                {
+                    if (temp->right_son)
+                    {
+                        succ = getMinNodeAux(temp->right_son);
+                        if (succ == nullptr)
+                        {
+                            succ = temp;
+                        }
+                    }
+                    break;
+                }
+                // if the key doesn't exist in the binary tree, return next greater node
+                if (!temp)
+                {
+                    return succ;
+                }
+            }
+            // return successor, if any
+            return succ;
+        }
+        ////////////////
+
         void insert(Customer* data)
         {
             if(!find(data))
@@ -286,37 +428,6 @@ using std::endl;
             size=0;
         }
 
-        int get_ith_position(int i) const
-        {
-            AVLNode* temp = root;
-            return get_ith_positionAux(temp, i);
-        }
-
-        int get_ith_positionAux(AVLNode* root, int i) const
-        {            
-            int current_index = 0;
-            if(root->left_son)
-            {
-                current_index = root->left_son->extra;
-            }
-            if(current_index > i-1)
-            {
-                return get_ith_positionAux(root->left_son, i);
-            }
-            if(current_index == i-1)
-            {
-                return root->data->getCustomerID();
-            }
-            if(current_index < i-1)
-            {
-                if(root->right_son)
-                {
-                    return get_ith_positionAux(root->right_son, i - current_index - 1);
-                }
-
-            }
-            return -1;
-        }
     };
     
 #endif //AVL_TREE_H_

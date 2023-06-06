@@ -29,25 +29,25 @@ int absNum(int num)
     {
         AVLNode *new_root = root->left_son;
 
-        AVLNode *rootRight = root->right_son;
-        AVLNode *newRight = new_root->right_son;
-        AVLNode *newLeft = new_root->left_son;
-        int rootRightExtra = 0, newRightExtra = 0, newLeftExtra = 0;
+        // AVLNode *rootRight = root->right_son;
+        // AVLNode *newRight = new_root->right_son;
+        // AVLNode *newLeft = new_root->left_son;
+        // int rootRightExtra = 0, newRightExtra = 0, newLeftExtra = 0;
 
-        if(rootRight)
-        {
-            rootRightExtra = rootRight->extra;
-        }
-        if(newRight)
-        {
-            newRightExtra = newRight->extra;
-        }
-        if(newLeft)
-        {
-            newLeftExtra = newLeft->extra;
-        }
-        root->extra = rootRightExtra + newRightExtra + 1;
-        new_root->extra = root->extra + newLeftExtra + 1;
+        // if(rootRight)
+        // {
+        //     rootRightExtra = rootRight->extra;
+        // }
+        // if(newRight)
+        // {
+        //     newRightExtra = newRight->extra;
+        // }
+        // if(newLeft)
+        // {
+        //     newLeftExtra = newLeft->extra;
+        // }
+        // root->extra = rootRightExtra + newRightExtra + 1;
+        // new_root->extra = root->extra + newLeftExtra + 1;
 
         root->left_son = new_root->right_son;
 
@@ -83,25 +83,25 @@ int absNum(int num)
     {
         AVLNode *new_root = root->right_son;
 
-        AVLNode *rootLeft = root->left_son;
-        AVLNode *newRight = new_root->right_son;
-        AVLNode *newLeft = new_root->left_son;
-        int rootLeftExtra = 0, newRightExtra = 0, newLeftExtra = 0;
+        // AVLNode *rootLeft = root->left_son;
+        // AVLNode *newRight = new_root->right_son;
+        // AVLNode *newLeft = new_root->left_son;
+        // int rootLeftExtra = 0, newRightExtra = 0, newLeftExtra = 0;
 
-        if(rootLeft)
-        {
-            rootLeftExtra = rootLeft->extra;
-        }
-        if(newRight)
-        {
-            newRightExtra = newRight->extra;
-        }
-        if(newLeft)
-        {
-            newLeftExtra = newLeft->extra;
-        }
-        root->extra = rootLeftExtra + newLeftExtra+ 1;
-        new_root->extra = root->extra + newRightExtra + 1;
+        // if(rootLeft)
+        // {
+        //     rootLeftExtra = rootLeft->extra;
+        // }
+        // if(newRight)
+        // {
+        //     newRightExtra = newRight->extra;
+        // }
+        // if(newLeft)
+        // {
+        //     newLeftExtra = newLeft->extra;
+        // }
+        // root->extra = rootLeftExtra + newLeftExtra+ 1;
+        // new_root->extra = root->extra + newRightExtra + 1;
 
 
         root->right_son = new_root->left_son;
@@ -293,13 +293,13 @@ int absNum(int num)
 
         int node1_height=node1->height;
         int node2_height=node2->height;
-        int node1_extra=node1->extra;
-        int node2_extra=node2->extra;
+        // int node1_extra=node1->extra;
+        // int node2_extra=node2->extra;
 
         node1->height=node2_height;
         node2->height=node1_height;
-        node1->extra=node2_extra;
-        node2->extra=node1_extra;
+        // node1->extra=node2_extra;
+        // node2->extra=node1_extra;
 
         //node1 is node2's father
         if(node1==node2_father)
@@ -411,16 +411,16 @@ int absNum(int num)
             // cout<<node->extra<<endl;
             prev=node;
             node->height = 1 +maxNum(getHeightAux(node->left_son),getHeightAux(node->right_son));
-            int leftExtra=0,rightExtra=0;
-            if(node->left_son)
-            {
-                leftExtra = node->left_son->extra;
-            }
-            if(node->right_son)
-            {
-                rightExtra = node->right_son->extra;
-            }
-            node->extra = leftExtra + rightExtra + 1;
+            // int leftExtra=0,rightExtra=0;
+            // if(node->left_son)
+            // {
+            //     leftExtra = node->left_son->extra;
+            // }
+            // if(node->right_son)
+            // {
+            //     rightExtra = node->right_son->extra;
+            // }
+            // node->extra = leftExtra + rightExtra + 1;
             rebalanceAux(node);
             node=node->father;
         }

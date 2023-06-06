@@ -18,7 +18,7 @@ int absNum(int num);
         int height;
         int id;
         int extra;
-        explicit AVLNode(Customer* customer, int id) : data(customer), left_son(nullptr), right_son(nullptr), father(nullptr), height(0), id(id), extra(1) {}
+        explicit AVLNode(Customer* customer, int id) : data(customer), left_son(nullptr), right_son(nullptr), father(nullptr), height(0), id(id), extra(0) {}
         int getID() const
         {
             return id;

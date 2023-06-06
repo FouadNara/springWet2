@@ -13,18 +13,27 @@ class invertedNode
     public:
     invertedNode(Record* record):record(record),parent(nullptr),height(1),column(record->getRecordID())
     {}
-    
+    ///////////// GETTERS ////////////
     bool isRoot() const;
+    int getTotalNodes() const;
+    int getMinHeightID() const;
     Record* getRecord();
     invertedNode* findRoot();
     invertedNode* getParent();
+
+    ///////////// SETTERS ////////////
+    void setMinHeightID(int value);
 
     private:
     Record* record;
     invertedNode* parent;
     int height;
     int column; //column is the r_id with minimum height!,
-    // height and column bkono updated bs bel root s7?
+    int min_height_id; // updated just in root
+    int total_records;
+    int total_nodes;
+
+
 };
 
 #endif // NODE_H_

@@ -166,13 +166,33 @@ StatusType RecordsCompany :: buyRecord(int c_id,int r_id)
     return StatusType::SUCCESS;
 }
 
-//TODO
 StatusType RecordsCompany :: addPrize(int c_id1,int c_id2,double amount)
 {
     if( c_id1 < 0 || c_id2 < c_id1 || amount <= 0)
     {
         return StatusType :: INVALID_INPUT;
     }
+
+    //interval ids
+    int id1=0 , id2=0; 
+    
+    AVLNode* customer = club_members_tree.find_by_id(c_id1);
+    //if c_id1 exists in tree
+    if(customer)
+    {
+        id1 = c_id1;
+    }
+    else
+    {
+        AVLNode* customerSuccessor = club_members_tree.findSuccessor(c_id1);
+        id1 = customerSuccessor->data->getCustomerID();
+    }
+    id2 = club_members_tree.findPredecessor(c_id2)->data->getCustomerID();
+    //////
+    club_members_tree.addExtra(id2, amount);
+    club_members_tree.addExtra(id1, -amount);
+
+    //addPrize is complete, i just need to check mkre ktse later.
     return StatusType :: SUCCESS;
 } 
 
@@ -226,6 +246,26 @@ StatusType RecordsCompany :: putOnTop(int r_id1,int r_id2)
     if(first_parent == sec_parent)
     {
         return StatusType :: FAILURE;
+    }
+
+    int first_size = first_parent->getTotalNodes();
+    int sec_size = sec_parent->getTotalNodes();
+
+    invertedNode* captain;
+	invertedNode* exCaptain;
+    //🍵 ana break
+    if(first_size > sec_size)
+    {
+        captain = first_parent;
+        exCaptain = sec_parent;
+        
+        captain->setMinHeightID(exCaptain->getMinHeightID());
+
+    }
+    else
+    {
+        captain = sec_parent;
+        exCaptain = first_parent;
     }
 
     return StatusType :: SUCCESS;

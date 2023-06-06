@@ -35,3 +35,18 @@ invertedNode* invertedNode :: findRoot()
     return 
 
 }
+
+int invertedNode :: getTotalNodes() const
+{
+    return total_nodes;
+}
+
+int invertedNode :: getMinHeightID() const
+{
+    return min_height_id;
+}
+
+void invertedNode :: setMinHeightID(int value)
+{
+    min_height_id = value;
+}
