@@ -13,9 +13,11 @@ class invertedNode
     public:
     invertedNode(Record* record):record(record),parent(nullptr),height(1),column(record->getRecordID())
     {}
-
+    
     bool isRoot() const;
     Record* getRecord();
+    invertedNode* findRoot();
+    invertedNode* getParent();
 
     private:
     Record* record;

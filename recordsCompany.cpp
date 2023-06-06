@@ -220,10 +220,10 @@ StatusType RecordsCompany :: putOnTop(int r_id1,int r_id2)
     invertedNode* first_record = recordNodesArr[r_id1];
     invertedNode* sec_record = recordNodesArr[r_id2];
 
-    
+    invertedNode* first_parent = first_record->findRoot();
+    invertedNode* sec_parent = sec_record->findRoot();
 
-
-    // if r_id1 and r_id2 same 
+    if(first_parent == sec_parent)
     {
         return StatusType :: FAILURE;
     }
