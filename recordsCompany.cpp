@@ -74,6 +74,10 @@ StatusType RecordsCompany :: addCostumer(int c_id,int phone)
     {
         return StatusType::ALLOCATION_ERROR;
     }
+
+    //adding undeserved prize:
+    double undeservedPrize = club_members_tree.calcExtra(CustomerToAdd);
+    CustomerToAdd->setUndeservedPrize(undeservedPrize);
     
     return StatusType::SUCCESS;
 }
@@ -229,8 +233,10 @@ Output_t<double> RecordsCompany :: getExpenses(int c_id)
 
     //todo: function to calculate expenses (from AVLtree)
     double prizeAmount = club_members_tree.calcExtra(customer_ptr);
-    // hoon lazim ntr7 undeserved prize
-    int expenses;
+    double undeservedPrize = customer_ptr->getUndeservedPrize();
+
+    //check
+    double expenses = customer_ptr->getExpenses() - prizeAmount + undeservedPrize;
 
     return Output_t<double>(expenses);
 }
@@ -287,6 +293,11 @@ StatusType RecordsCompany :: putOnTop(int r_id1,int r_id2)
         captain_new_height = captain->getHeight();
         exCaptain_new_height = exCaptain->getHeight() + captain->getTotalRecords() - captain_new_height;
     }
+
+    exCaptain->setParent(captain);
+    captain->setTotalNodes(captain->getTotalNodes() + exCaptain->getTotalNodes());
+    captain->setTotalRecords(captain->getTotalRecords() + exCaptain->getTotalRecords());
+
 
     captain->setHeight(captain_new_height);
     exCaptain->setHeight(exCaptain_new_height);

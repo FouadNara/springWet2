@@ -22,6 +22,9 @@ class invertedNode
     ///////////// SETTERS ////////////
     void setMinHeightID(int value);
     void setHeight(int value);
+    void setParent(invertedNode* newParent);
+    void setTotalNodes(int totalNodes);
+    void setTotalRecords(int totalRecords);
 
     private:
     Record* record;

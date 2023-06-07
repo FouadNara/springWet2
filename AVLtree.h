@@ -397,7 +397,6 @@ using std::endl;
             }  
             root = insertAux<Compare>(root, data);
             max=getMaxNodeAux(root);
-            double sumExtra = calcExtraAux(root, data);
         }
 
         void remove(const Customer* toDelete)

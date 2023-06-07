@@ -18,6 +18,7 @@ class Customer
     int getUndeservedPrize() const;
     bool isMember() const;
 
+    void setUndeservedPrize(double amount);
     void makeMember();
     void addMonthlyExpenses(int toAdd);
     void resetMember(); // we call it just for club members
@@ -27,7 +28,7 @@ class Customer
     int customer_id;
     int phone_number;
     int expenses;
-    int undeserved_prize; //7bet
+    double undeserved_prize; //7bet
     bool is_member;
 };
 

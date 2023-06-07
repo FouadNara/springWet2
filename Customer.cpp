@@ -27,8 +27,12 @@ bool Customer::isMember() const
 
 void Customer::makeMember()
 {
-    // we 
     is_member = true;
+}
+
+void Customer::setUndeservedPrize(double amount)
+{
+    undeserved_prize = amount;
 }
 
 void Customer::addMonthlyExpenses(int toAdd)
