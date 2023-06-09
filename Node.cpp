@@ -33,23 +33,22 @@ invertedNode* invertedNode :: findRoot()
     while(temp->getParent())
     {
         temp = temp->getParent();        
-        sumHeights += temp->getHeight();
     }
     invertedNode* root = temp;
-    temp = this;
 
-    // msh mt2kde sho lazim n3'yer bel kivots
-    //lazm nsir ntr7 el heights 7sb el sumHeights zy bltgrul
-    int rootHeight = root->getHeight();
-    sumHeights -= rootHeight;
+    int cur_height = this->getHeight();
+
+    temp = this->getParent();
+
     while(temp!=root)
     {
+        cur_height += temp->getHeight();
+
         sumHeights -= temp->getHeight();
         temp->setHeight(temp->getHeight() + sumHeights);
         invertedNode* tempParent = temp->getParent();
         temp->setParent(root);
         temp = tempParent;
-        //la bttlt mt2kd 💀💀💀
     }
 
     return root;
@@ -98,4 +97,9 @@ void invertedNode::setTotalRecords(int totalRecords)
 int invertedNode :: getHeight() const
 {
     return height;
+}
+
+int invertedNode :: getColumn() const
+{
+    return column;
 }

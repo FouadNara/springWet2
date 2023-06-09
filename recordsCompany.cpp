@@ -317,6 +317,12 @@ StatusType RecordsCompany :: getPlace(int r_id,int *column,int *height)
     {
         return StatusType :: DOESNT_EXISTS;
     }
+    invertedNode* record_node = recordNodesArr[r_id];
+    invertedNode* root = record_node->findRoot();
+
+    *column = root->getColumn();
+    *height = root->getHeight() + record_node->getHeight();
+
 
     return StatusType :: SUCCESS;
 }

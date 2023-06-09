@@ -15,6 +15,7 @@ class invertedNode
     int getMinHeightID() const;
     int getTotalRecords() const;
     int getHeight() const;
+    int getColumn() const;
     Record* getRecord();
     invertedNode* findRoot();
     invertedNode* getParent();
