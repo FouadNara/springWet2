@@ -1,16 +1,16 @@
 #include "recordsCompany.h"
 
-RecordsCompany :: RecordsCompany()
-{
-    //shu lmfrud hon ykun? 💀💀
-    //el newMonth heye zy constructor la?
-}
+RecordsCompany :: RecordsCompany() = default;
 
 RecordsCompany :: ~RecordsCompany()
 {
+   
+
     club_members_tree.treeClear(); //deletes only nodes
     customers.deleteHash(); //deletes all customers
     
+     // ymkn lazim n3ml helper destructor ym7a el array and records 3shan nst3mlo b new month?
+    // bnf3 hek bs 3shan mykonsh she5bol code
     for(int i=0;i<different_records_num;i++)
     {
         invertedNode* curNode = recordNodesArr[i];
@@ -30,11 +30,21 @@ StatusType RecordsCompany :: newMonth(int *records_stocks,int number_of_records)
 
     //should delete previous recordNodes? i think yes
 
+    for(int i=0;i<different_records_num;i++)
+    {
+        invertedNode* curNode = recordNodesArr[i];
+        Record* curRecord = curNode->getRecord();
+        delete curRecord;
+        delete curNode;
+    }
+
+    delete[] recordNodesArr;
+
     try
     {
         recordNodesArr = new invertedNode*[number_of_records];
 
-        for(int i=0;i<number_of_records;i++)
+        for(int i=0; i < number_of_records; i++)
         {
             Record* record = new Record(i,records_stocks[i]);
             recordNodesArr[i] = new invertedNode(record);
@@ -46,8 +56,11 @@ StatusType RecordsCompany :: newMonth(int *records_stocks,int number_of_records)
     {
         return StatusType::ALLOCATION_ERROR;
     }
+
     club_members_tree.inOrder(ResetClubMembers());
+
     different_records_num = number_of_records;
+
     return StatusType :: SUCCESS;
 }
 
@@ -74,10 +87,6 @@ StatusType RecordsCompany :: addCostumer(int c_id,int phone)
     {
         return StatusType::ALLOCATION_ERROR;
     }
-
-    //adding undeserved prize:
-    double undeservedPrize = club_members_tree.calcExtra(CustomerToAdd);
-    CustomerToAdd->setUndeservedPrize(undeservedPrize);
     
     return StatusType::SUCCESS;
 }
@@ -133,6 +142,10 @@ StatusType RecordsCompany :: makeMember(int c_id)
     customer_ptr->makeMember();
 
     // we should update undeserved_prize here
+    //adding undeserved prize:
+    double undeservedPrize = club_members_tree.calcExtra(customer_ptr);
+    customer_ptr->setUndeservedPrize(undeservedPrize);
+    
     return StatusType :: SUCCESS;
 } 
 
