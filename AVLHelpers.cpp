@@ -28,27 +28,6 @@ int absNum(int num)
     AVLNode *rightRotateAux(AVLNode *root)
     {
         AVLNode *new_root = root->left_son;
-
-        // AVLNode *rootRight = root->right_son;
-        // AVLNode *newRight = new_root->right_son;
-        // AVLNode *newLeft = new_root->left_son;
-        // int rootRightExtra = 0, newRightExtra = 0, newLeftExtra = 0;
-
-        // if(rootRight)
-        // {
-        //     rootRightExtra = rootRight->extra;
-        // }
-        // if(newRight)
-        // {
-        //     newRightExtra = newRight->extra;
-        // }
-        // if(newLeft)
-        // {
-        //     newLeftExtra = newLeft->extra;
-        // }
-        // root->extra = rootRightExtra + newRightExtra + 1;
-        // new_root->extra = root->extra + newLeftExtra + 1;
-
         root->left_son = new_root->right_son;
 
         if (new_root->right_son != nullptr)
@@ -76,33 +55,16 @@ int absNum(int num)
         new_root->height = maxNum(getHeightAux(new_root->left_son),
                                getHeightAux(new_root->right_son)) + 1;
 
+        //Update extras
+        new_root->extra += root->extra;
+        root->extra = 0;
+
         return new_root;
     }
     
     AVLNode *leftRotateAux(AVLNode *root)
     {
         AVLNode *new_root = root->right_son;
-
-        // AVLNode *rootLeft = root->left_son;
-        // AVLNode *newRight = new_root->right_son;
-        // AVLNode *newLeft = new_root->left_son;
-        // int rootLeftExtra = 0, newRightExtra = 0, newLeftExtra = 0;
-
-        // if(rootLeft)
-        // {
-        //     rootLeftExtra = rootLeft->extra;
-        // }
-        // if(newRight)
-        // {
-        //     newRightExtra = newRight->extra;
-        // }
-        // if(newLeft)
-        // {
-        //     newLeftExtra = newLeft->extra;
-        // }
-        // root->extra = rootLeftExtra + newLeftExtra+ 1;
-        // new_root->extra = root->extra + newRightExtra + 1;
-
 
         root->right_son = new_root->left_son;
         if (new_root->left_son != nullptr)
@@ -129,6 +91,9 @@ int absNum(int num)
                            getHeightAux(root->right_son)) + 1;
         new_root->height = maxNum(getHeightAux(new_root->left_son),
                                getHeightAux(new_root->right_son)) + 1;
+
+        //Update extras
+        new_root->extra += root->extra;
         
         return new_root;
     }
@@ -156,6 +121,7 @@ int absNum(int num)
         // LL
         if ((balance > 1) && (left_son_balance >= 0))
         {
+
             return rightRotateAux(node);
         }
 
