@@ -305,7 +305,6 @@ StatusType RecordsCompany :: putOnTop(int r_id1,int r_id2)
     return StatusType :: SUCCESS;
 }
 
-//TODO
 StatusType RecordsCompany :: getPlace(int r_id,int *column,int *height)
 {
     if( !(column) || !(height) || r_id < 0)
