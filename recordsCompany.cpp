@@ -4,21 +4,9 @@ RecordsCompany :: RecordsCompany() = default;
 
 RecordsCompany :: ~RecordsCompany()
 {
-   
-
     club_members_tree.treeClear(); //deletes only nodes
     customers.deleteHash(); //deletes all customers
-    
-     // ymkn lazim n3ml helper destructor ym7a el array and records 3shan nst3mlo b new month?
-    // bnf3 hek bs 3shan mykonsh she5bol code
-    for(int i=0;i<different_records_num;i++)
-    {
-        invertedNode* curNode = recordNodesArr[i];
-        Record* curRecord = curNode->getRecord();
-        delete curRecord;
-        delete curNode;
-    }
-    delete[] recordNodesArr;
+    deleteRecordsArray(); //deletes recordsArray and all records + nodes
 }
 
 StatusType RecordsCompany :: newMonth(int *records_stocks,int number_of_records)
@@ -28,17 +16,7 @@ StatusType RecordsCompany :: newMonth(int *records_stocks,int number_of_records)
         return StatusType :: INVALID_INPUT;
     }
 
-    //should delete previous recordNodes? i think yes
-
-    for(int i=0;i<different_records_num;i++)
-    {
-        invertedNode* curNode = recordNodesArr[i];
-        Record* curRecord = curNode->getRecord();
-        delete curRecord;
-        delete curNode;
-    }
-
-    delete[] recordNodesArr;
+    deleteRecordsArray();
 
     try
     {
@@ -186,7 +164,7 @@ StatusType RecordsCompany :: buyRecord(int c_id,int r_id)
     if(customer->isMember())
     {
         int prevBuyers = record->getNumBuyers(); 
-        customer->addMonthlyExpenses(100 + prevBuyers);
+        customer->addMonthlyExpenses((double)(100 + prevBuyers));
     }
     record->buy();
 
@@ -200,26 +178,12 @@ StatusType RecordsCompany :: addPrize(int c_id1,int c_id2,double amount)
         return StatusType :: INVALID_INPUT;
     }
 
-    //interval ids
-    int id1=0 , id2=0; 
-    
-    AVLNode* customer = club_members_tree.find_by_id(c_id1);
-    //if c_id1 exists in tree
-    if(customer)
-    {
-        id1 = c_id1;
-    }
-    else
-    {
-        AVLNode* customerSuccessor = club_members_tree.findSuccessor(c_id1);
-        id1 = customerSuccessor->data->getCustomerID();
-    }
-    id2 = club_members_tree.findPredecessor(c_id2)->data->getCustomerID();
-    //////
+    int id1 = club_members_tree.findPredecessor(c_id1)->data->getCustomerID();
+    int id2 = club_members_tree.findPredecessor(c_id2)->data->getCustomerID();
+
     club_members_tree.addExtra(id2, amount);
     club_members_tree.addExtra(id1, -amount);
 
-    //addPrize is complete, i just need to check mkre ktse later.
     return StatusType :: SUCCESS;
 } 
 
@@ -230,26 +194,19 @@ Output_t<double> RecordsCompany :: getExpenses(int c_id)
     {
         return StatusType :: INVALID_INPUT;
     }
-    Customer* customer_ptr = customers.search(c_id); 
 
-    //customer doesn't exist
+    AVLNode* customer_ptr = club_members_tree.find_by_id(c_id);
+
     if(!customer_ptr)
     {
         return StatusType :: DOESNT_EXISTS;
     }
 
-    //customer is not club member
-    if(!customer_ptr->isMember())
-    {
-        return StatusType :: DOESNT_EXISTS;
-    }
+    Customer* customer = customer_ptr->data;
 
-    //todo: function to calculate expenses (from AVLtree)
-    double prizeAmount = club_members_tree.calcExtra(customer_ptr);
-    double undeservedPrize = customer_ptr->getUndeservedPrize();
-
-    //check
-    double expenses = customer_ptr->getExpenses() - prizeAmount + undeservedPrize;
+    double prizeAmount = club_members_tree.calcExtra(customer);
+    double undeservedPrize = customer->getUndeservedPrize();
+    double expenses = customer->getExpenses() - prizeAmount + undeservedPrize;
 
     return Output_t<double>(expenses);
 }
@@ -332,9 +289,8 @@ StatusType RecordsCompany :: getPlace(int r_id,int *column,int *height)
     invertedNode* record_node = recordNodesArr[r_id];
     invertedNode* root = record_node->findRoot();
 
-    *column = root->getColumn();
+    *column = root->getColumn(); //column or getMinHeightID?
     *height = root->getHeight() + record_node->getHeight();
-
 
     return StatusType :: SUCCESS;
 }

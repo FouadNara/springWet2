@@ -15,21 +15,32 @@ class RecordsCompany {
     invertedNode** recordNodesArr;
     int different_records_num;
 
-    // Functor for remove_group
-  struct ResetClubMembers
-  {
-    public:
-    void operator()(AVLNode *root)
+    struct ResetClubMembers
     {
-      if (root)
+      public:
+      void operator()(AVLNode *root)
       {
-        Customer *member = root->data;
-        member->resetMember();
+        if (root)
+        {
+          Customer *member = root->data;
+          member->resetMember();
+          root->extra = 0;
+        }
       }
+    };
+    
+    void deleteRecordsArray()
+    {
+      for(int i=0;i<different_records_num;i++)
+      {
+          invertedNode* curNode = recordNodesArr[i];
+          Record* curRecord = curNode->getRecord();
+          delete curRecord;
+          delete curNode;
+      }
+      delete[] recordNodesArr;
     }
-  };
-
-
+    
   public:
     RecordsCompany();
     ~RecordsCompany();

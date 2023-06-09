@@ -12,11 +12,7 @@ Record* invertedNode::getRecord()
 
 invertedNode* invertedNode :: getParent()
 {
-    if(!isRoot())
-    {
-        return parent;
-    }
-    return nullptr;
+    return parent;
 }
 
 invertedNode* invertedNode :: findRoot()

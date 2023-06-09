@@ -10,25 +10,25 @@ class Customer
     public:
     Customer(int customer_id, int phone_number)
     :customer_id(customer_id), phone_number(phone_number), expenses(0), undeserved_prize(0), is_member(false){}
-    ~Customer() = default;//? yes
+    ~Customer() = default;
 
     int getCustomerID() const;
     int getPhoneNumber() const;
-    int getExpenses() const;
-    int getUndeservedPrize() const;
+    double getExpenses() const;
+    double getUndeservedPrize() const;
     bool isMember() const;
 
     void setUndeservedPrize(double amount);
     void makeMember();
-    void addMonthlyExpenses(int toAdd);
-    void resetMember(); // we call it just for club members
+    void addMonthlyExpenses(double toAdd);
+    void resetMember();
 
     
     private:
     int customer_id;
     int phone_number;
-    int expenses;
-    double undeserved_prize; //7bet
+    double expenses;
+    double undeserved_prize;
     bool is_member;
 };
 

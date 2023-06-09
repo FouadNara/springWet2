@@ -7,7 +7,7 @@
 class invertedNode
 {
     public:
-    invertedNode(Record* record):record(record),parent(nullptr),height(1),column(record->getRecordID())
+    invertedNode(Record* record):record(record),parent(nullptr),height(0),column(record->getRecordID())
     {}
     ///////////// GETTERS ////////////
     bool isRoot() const;
@@ -34,12 +34,10 @@ class invertedNode
     Record* record;
     invertedNode* parent;
     int height;
-    int column; //column is the r_id with minimum height!,
-    int min_height_id; // updated just in root
+    int column;
+    int min_height_id;
     int total_records;
     int total_nodes;
-
-
 };
 
 #endif // NODE_H_

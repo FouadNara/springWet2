@@ -5,7 +5,7 @@ int Customer::getCustomerID() const
     return customer_id;
 }
 
-int Customer::getExpenses() const
+double Customer::getExpenses() const
 {
     return expenses;
 }
@@ -15,7 +15,7 @@ int Customer::getPhoneNumber() const
     return phone_number;
 }
 
-int Customer::getUndeservedPrize() const
+double Customer::getUndeservedPrize() const
 {
     return undeserved_prize;
 }
@@ -35,7 +35,7 @@ void Customer::setUndeservedPrize(double amount)
     undeserved_prize = amount;
 }
 
-void Customer::addMonthlyExpenses(int toAdd)
+void Customer::addMonthlyExpenses(double toAdd)
 {
     expenses += toAdd;
 }
@@ -47,9 +47,4 @@ void Customer :: resetMember()
         expenses = 0;
         undeserved_prize = 0;
     }
-    else
-    {
-        //ERROR
-    }
-
 }
