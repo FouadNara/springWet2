@@ -3,7 +3,7 @@
 
 #include "utilesWet2.h"
 // #include "AVLtree.h"
-#include "hashtable.h"
+#include "HashTable.h"
 // #include "Functors.h"
 #include "Node.h"
 
