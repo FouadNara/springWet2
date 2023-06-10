@@ -3,7 +3,6 @@
 
 #include <stdbool.h>
 
-
 class Customer
 {
     

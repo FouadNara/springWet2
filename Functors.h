@@ -1,7 +1,7 @@
 #ifndef FUNCTORS_H_
 #define FUNCTORS_H_
-//#include "Team.h"
-#include "Customer.h"
+// #include "Customer.h"
+#include "AVLtree.h"
 
 class CustomerID
 {

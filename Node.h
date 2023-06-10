@@ -1,14 +1,15 @@
 #ifndef NODE_H_
 #define NODE_H_
 
+class Record;
+
 #include "Record.h"
 
 //Node for inverted tree
 class invertedNode
 {
     public:
-    invertedNode(Record* record):record(record),parent(nullptr),height(0),column(record->getRecordID())
-    {}
+    invertedNode(Record* record);
     ///////////// GETTERS ////////////
     bool isRoot() const;
     int getTotalNodes() const;

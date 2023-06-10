@@ -1,14 +1,12 @@
 #ifndef HASHTABLE_H_
 #define HASHTABLE_H_
 
-#include "AVLtree.h"
+//#include "AVLtree.h"
 #include "Functors.h"
-#include <stdio.h>
-#include <iostream>
+// #include <stdio.h>
+// #include <iostream>
 using std::cout;
 using std::endl;
-
-class invertedNode;
 
 #define PRIME 11
 

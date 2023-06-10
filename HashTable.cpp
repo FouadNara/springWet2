@@ -1,5 +1,4 @@
 #include "HashTable.h"
-#include "Node.h"
 
 
 int HashTable::getSize() const

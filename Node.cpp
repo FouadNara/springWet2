@@ -1,5 +1,8 @@
 #include "Node.h"
 
+invertedNode::invertedNode(Record* record):record(record),parent(nullptr),height(0),column(record->getRecordID())
+{}
+
 bool invertedNode::isRoot() const
 {
     return (parent == nullptr);

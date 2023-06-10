@@ -2,9 +2,9 @@
 #define RECORDS_COMPANY_H
 
 #include "utilesWet2.h"
-#include "AVLtree.h"
+// #include "AVLtree.h"
 #include "hashtable.h"
-#include "Functors.h"
+// #include "Functors.h"
 #include "Node.h"
 
 

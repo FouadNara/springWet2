@@ -3,7 +3,6 @@
 
 #include <assert.h>
 #include "Customer.h"
-//#include "Functors.h"
 
 int maxNum(int a, int b);
 
