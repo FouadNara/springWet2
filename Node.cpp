@@ -2,8 +2,9 @@
 
 invertedNode::invertedNode(Record* record)
 :record(record),parent(nullptr),height(0),column(record->getRecordID()), 
-min_height_id(record->getRecordID()), total_records(record->getRecordCopies()), total_nodes(0) {}
+total_records(record->getRecordCopies()), total_nodes(0) {}
 
+//twane shwy
 bool invertedNode::isRoot() const
 {
     return (parent == nullptr);
@@ -65,16 +66,6 @@ int invertedNode :: getTotalNodes() const
     return total_nodes;
 }
 
-int invertedNode :: getMinHeightID() const
-{
-    return min_height_id;
-}
-
-void invertedNode :: setMinHeightID(int value)
-{
-    min_height_id = value;
-}
-
 int invertedNode :: getTotalRecords() const
 {
     return total_records;
@@ -123,4 +114,9 @@ void invertedNode :: decreaseNodes(int num)
 void invertedNode :: decreaseRecords(int num)
 {
     total_records -= num;
+}
+
+void invertedNode :: setColumn(int value)
+{
+    column = value;
 }

@@ -220,7 +220,7 @@ Output_t<double> RecordsCompany :: getExpenses(int c_id)
     return Output_t<double>(expenses);
 }
 
-/
+
 StatusType RecordsCompany :: putOnTop(int r_id1,int r_id2)
 {
     if( r_id1 < 0 || r_id2 < 0)
@@ -258,7 +258,7 @@ StatusType RecordsCompany :: putOnTop(int r_id1,int r_id2)
         captain = first_parent;
         exCaptain = sec_parent;
         
-        captain->setMinHeightID(exCaptain->getMinHeightID());
+        captain->setColumn(exCaptain->getColumn());
         captain_new_height = exCaptain->getTotalRecords() + captain->getHeight();
         exCaptain_new_height = exCaptain->getHeight() - captain_new_height;
 
@@ -271,9 +271,7 @@ StatusType RecordsCompany :: putOnTop(int r_id1,int r_id2)
         captain_new_height = captain->getHeight();
         exCaptain_new_height = exCaptain->getHeight() + captain->getTotalRecords() - captain_new_height;
     }
-  // ✔ jomjomeeeeeeeeeeee
-//lmao
-// bde arkz :)
+  
     exCaptain->setParent(captain);
     captain->setTotalNodes(captain->getTotalNodes() + exCaptain->getTotalNodes());
     captain->setTotalRecords(captain->getTotalRecords() + exCaptain->getTotalRecords());
@@ -298,13 +296,10 @@ StatusType RecordsCompany :: getPlace(int r_id,int *column,int *height)
         return StatusType :: DOESNT_EXISTS;
     }
     invertedNode* record_node = recordNodesArr[r_id];
-    invertedNode* root = record_node->findRoot(); //hay lmfrud t3ml kivuts wlroot ysir parent
+    invertedNode* root = record_node->findRoot();
 
 
     *column = root->getColumn(); 
-    cout<<root->getHeight()<<endl;
-    cout<<record_node->getHeight()<<endl;
-    *height = root->getHeight() + record_node->getHeight(); //had s7
-
+    *height = root->getHeight() + record_node->getHeight(); 
     return StatusType :: SUCCESS;
 }

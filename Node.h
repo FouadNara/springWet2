@@ -13,7 +13,6 @@ class invertedNode
     ///////////// GETTERS ////////////
     bool isRoot() const;
     int getTotalNodes() const;
-    int getMinHeightID() const;
     int getTotalRecords() const;
     int getHeight() const;
     int getColumn() const;
@@ -22,8 +21,8 @@ class invertedNode
     invertedNode* getParent();
 
     ///////////// SETTERS ////////////
-    void setMinHeightID(int value);
     void setHeight(int value);
+    void setColumn(int value);
     void setParent(invertedNode* newParent);
     void setTotalNodes(int totalNodes);
     void setTotalRecords(int totalRecords);
@@ -36,7 +35,6 @@ class invertedNode
     invertedNode* parent;
     int height;
     int column;
-    int min_height_id;
     int total_records;
     int total_nodes;
 };
