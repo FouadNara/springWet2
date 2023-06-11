@@ -1,7 +1,6 @@
 #ifndef HASHTABLE_H_
 #define HASHTABLE_H_
 
-//#include "AVLtree.h"
 #include "Functors.h"
 // #include <stdio.h>
 // #include <iostream>
@@ -31,7 +30,7 @@ class HashTable
     int getSize() const;
     double getLoadFactor() const;
 
-
+// ana day3a
     bool isCompressed() const;
     Customer* search(int customerID) const;
 

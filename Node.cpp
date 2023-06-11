@@ -1,7 +1,8 @@
 #include "Node.h"
 
-invertedNode::invertedNode(Record* record):record(record),parent(nullptr),height(0),column(record->getRecordID())
-{}
+invertedNode::invertedNode(Record* record)
+:record(record),parent(nullptr),height(0),column(record->getRecordID()), 
+min_height_id(record->getRecordID()), total_records(record->getRecordCopies()), total_nodes(0) {}
 
 bool invertedNode::isRoot() const
 {

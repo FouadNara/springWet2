@@ -1,6 +1,5 @@
 #include "HashTable.h"
 
-
 int HashTable::getSize() const
 {
     return size;
@@ -40,7 +39,7 @@ void HashTable::insert(int customerID, Customer* customer)
     numOfPlayers += 1;
     if(isCompressed())
     {
-        resize(); //should delete old linkedlists
+        resize();
     }
 }
 
@@ -56,8 +55,8 @@ void HashTable::deleteHash()
             delete tree;
         }
     }
-    delete[] table;
-}
+    delete[] table; //lmushkle enno lazm ykun delete[] table :)
+}// wow 
 
 
 HashTable::~HashTable()

@@ -2,10 +2,9 @@
 #define RECORDS_COMPANY_H
 
 #include "utilesWet2.h"
-// #include "AVLtree.h"
 #include "HashTable.h"
-// #include "Functors.h"
 #include "Node.h"
+
 
 
 class RecordsCompany {
@@ -40,6 +39,7 @@ class RecordsCompany {
       }
       delete[] recordNodesArr;
     }
+
     
   public:
     RecordsCompany();

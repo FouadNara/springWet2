@@ -1,11 +1,20 @@
 #include "recordsCompany.h"
 
-RecordsCompany :: RecordsCompany() = default;
+RecordsCompany :: RecordsCompany():different_records_num(2)
+{
+    recordNodesArr = new invertedNode*[different_records_num];
+    for(int i=0;i<different_records_num;i++)
+    {
+        Record* record = new Record(i,i);
+        recordNodesArr[i] = new invertedNode(record);
+        invertedNode* tempNode = recordNodesArr[i];
+        record->setRecordNode(tempNode);
+    }
+}
 
 RecordsCompany :: ~RecordsCompany()
 {
     club_members_tree.treeClear(); //deletes only nodes
-    customers.deleteHash(); //deletes all customers
     deleteRecordsArray(); //deletes recordsArray and all records + nodes
 }
 
@@ -16,7 +25,7 @@ StatusType RecordsCompany :: newMonth(int *records_stocks,int number_of_records)
         return StatusType :: INVALID_INPUT;
     }
 
-    deleteRecordsArray();
+    deleteRecordsArray(); //deletes old records
 
     try
     {
@@ -28,8 +37,10 @@ StatusType RecordsCompany :: newMonth(int *records_stocks,int number_of_records)
             recordNodesArr[i] = new invertedNode(record);
             invertedNode* tempNode = recordNodesArr[i];
             record->setRecordNode(tempNode);
-        }
-    }
+        } 
+        //fe valgrind error bs zbt compilation
+    }// zbt? 3rft sho el 3'lt b jeight
+    // 22 errors aha isa bshuf wen
     catch(const std::exception& e)
     {
         return StatusType::ALLOCATION_ERROR;
@@ -106,8 +117,6 @@ StatusType RecordsCompany :: makeMember(int c_id)
         return StatusType::ALREADY_EXISTS;
     }
 
-    // ymkn konna mn2dr kol el astor belfunction l7d hon b RecordsCompany :: isMember(int c_id)
-    // l2no same returned values
     try
     {
         club_members_tree.insert(customer_ptr);
@@ -211,7 +220,7 @@ Output_t<double> RecordsCompany :: getExpenses(int c_id)
     return Output_t<double>(expenses);
 }
 
-
+/
 StatusType RecordsCompany :: putOnTop(int r_id1,int r_id2)
 {
     if( r_id1 < 0 || r_id2 < 0)
@@ -238,11 +247,11 @@ StatusType RecordsCompany :: putOnTop(int r_id1,int r_id2)
     int first_size = first_parent->getTotalNodes();
     int sec_size = sec_parent->getTotalNodes();
 
-    invertedNode* captain;
-	invertedNode* exCaptain;
+    invertedNode* captain = nullptr;
+	invertedNode* exCaptain = nullptr;
 
-    int captain_new_height;
-    int exCaptain_new_height;
+    int captain_new_height = 0;
+    int exCaptain_new_height = 0;
 
     if(first_size > sec_size)
     {
@@ -250,7 +259,6 @@ StatusType RecordsCompany :: putOnTop(int r_id1,int r_id2)
         exCaptain = sec_parent;
         
         captain->setMinHeightID(exCaptain->getMinHeightID());
-
         captain_new_height = exCaptain->getTotalRecords() + captain->getHeight();
         exCaptain_new_height = exCaptain->getHeight() - captain_new_height;
 
@@ -263,17 +271,20 @@ StatusType RecordsCompany :: putOnTop(int r_id1,int r_id2)
         captain_new_height = captain->getHeight();
         exCaptain_new_height = exCaptain->getHeight() + captain->getTotalRecords() - captain_new_height;
     }
-
+  // ✔ jomjomeeeeeeeeeeee
+//lmao
+// bde arkz :)
     exCaptain->setParent(captain);
     captain->setTotalNodes(captain->getTotalNodes() + exCaptain->getTotalNodes());
     captain->setTotalRecords(captain->getTotalRecords() + exCaptain->getTotalRecords());
 
 
-    captain->setHeight(captain_new_height);
+    captain->setHeight(captain_new_height); 
     exCaptain->setHeight(exCaptain_new_height);
 
     return StatusType :: SUCCESS;
 }
+
 
 StatusType RecordsCompany :: getPlace(int r_id,int *column,int *height)
 {
@@ -287,10 +298,13 @@ StatusType RecordsCompany :: getPlace(int r_id,int *column,int *height)
         return StatusType :: DOESNT_EXISTS;
     }
     invertedNode* record_node = recordNodesArr[r_id];
-    invertedNode* root = record_node->findRoot();
+    invertedNode* root = record_node->findRoot(); //hay lmfrud t3ml kivuts wlroot ysir parent
 
-    *column = root->getColumn(); //column or getMinHeightID?
-    *height = root->getHeight() + record_node->getHeight();
+
+    *column = root->getColumn(); 
+    cout<<root->getHeight()<<endl;
+    cout<<record_node->getHeight()<<endl;
+    *height = root->getHeight() + record_node->getHeight(); //had s7
 
     return StatusType :: SUCCESS;
 }

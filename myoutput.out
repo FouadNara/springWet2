@@ -12,6 +12,12 @@ addPrize: SUCCESS
 getExpenses: 55
 putOnTop: SUCCESS
 putOnTop: SUCCESS
+0
+1
+getPlace: column=37, hight=1
+0
+0
 getPlace: column=37, hight=0
-getPlace: column=37, hight=0
+0
+0
 getPlace: column=37, hight=0

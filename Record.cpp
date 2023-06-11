@@ -29,3 +29,8 @@ void Record::setRecordNode(invertedNode* recNode)
 {
     recordNode = recNode;
 }
+
+int Record :: getRecordCopies() const
+{
+    return copies;
+}

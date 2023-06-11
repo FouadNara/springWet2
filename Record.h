@@ -14,6 +14,7 @@ class Record{
     int getNumBuyers() const;
     invertedNode* getRecordNode();
     const invertedNode* getRecordNode() const;
+    int getRecordCopies() const;
     // int getRecordHeight() const;
     // int getRecordColumn() const;
     
