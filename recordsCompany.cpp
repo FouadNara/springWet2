@@ -38,9 +38,8 @@ StatusType RecordsCompany :: newMonth(int *records_stocks,int number_of_records)
             invertedNode* tempNode = recordNodesArr[i];
             record->setRecordNode(tempNode);
         } 
-        //fe valgrind error bs zbt compilation
-    }// zbt? 3rft sho el 3'lt b jeight
-    // 22 errors aha isa bshuf wen
+    }
+    
     catch(const std::exception& e)
     {
         return StatusType::ALLOCATION_ERROR;
@@ -257,7 +256,7 @@ StatusType RecordsCompany :: putOnTop(int r_id1,int r_id2)
     {
         captain = first_parent;
         exCaptain = sec_parent;
-        
+                
         captain->setColumn(exCaptain->getColumn());
         captain_new_height = exCaptain->getTotalRecords() + captain->getHeight();
         exCaptain_new_height = exCaptain->getHeight() - captain_new_height;
@@ -295,11 +294,21 @@ StatusType RecordsCompany :: getPlace(int r_id,int *column,int *height)
     {
         return StatusType :: DOESNT_EXISTS;
     }
+    int recordHeight = 0;
+    int recordColumn = 0;
     invertedNode* record_node = recordNodesArr[r_id];
-    invertedNode* root = record_node->findRoot();
-
-
-    *column = root->getColumn(); 
-    *height = root->getHeight() + record_node->getHeight(); 
+    if(record_node->isRoot())
+    {
+        recordHeight = record_node->getHeight();
+        recordColumn = record_node->getColumn();
+    }
+    else
+    {
+        invertedNode* root = record_node->findRoot();
+        recordHeight = root->getHeight() + record_node->getHeight();
+        recordColumn = root->getColumn();
+    }
+    *column = recordColumn; 
+    *height = recordHeight; 
     return StatusType :: SUCCESS;
 }

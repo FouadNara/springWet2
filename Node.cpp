@@ -2,9 +2,8 @@
 
 invertedNode::invertedNode(Record* record)
 :record(record),parent(nullptr),height(0),column(record->getRecordID()), 
-total_records(record->getRecordCopies()), total_nodes(0) {}
+total_records(record->getRecordCopies()), total_nodes(1) {}
 
-//twane shwy
 bool invertedNode::isRoot() const
 {
     return (parent == nullptr);
@@ -43,17 +42,17 @@ invertedNode* invertedNode :: findRoot()
 
     while(temp!=root)
     {
-        sumHeights -= temp->getHeight();
         temp->setHeight(sumHeights);
+        sumHeights -= temp->getHeight();
 
-        int cur_nodes = temp->getTotalNodes();
-        int cur_records = temp->getTotalRecords();
+        // int cur_nodes = temp->getTotalNodes();
+        // int cur_records = temp->getTotalRecords();
 
         invertedNode* tempParent = temp->getParent();
         temp->setParent(root);
         
-        tempParent->decreaseNodes(cur_nodes);
-        tempParent->decreaseRecords(cur_records);
+        // tempParent->decreaseNodes(cur_nodes);
+        // tempParent->decreaseRecords(cur_records);
         
         temp = tempParent;
     }

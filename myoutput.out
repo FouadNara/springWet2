@@ -13,5 +13,5 @@ getExpenses: 55
 putOnTop: SUCCESS
 putOnTop: SUCCESS
 getPlace: column=37, hight=12
-getPlace: column=37, hight=0
+getPlace: column=37, hight=1
 getPlace: column=37, hight=0
