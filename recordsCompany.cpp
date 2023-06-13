@@ -188,8 +188,7 @@ StatusType RecordsCompany :: addPrize(int c_id1,int c_id2,double amount)
     int id1 = club_members_tree.findPredecessor(c_id1)->data->getCustomerID();
     int id2 = club_members_tree.findPredecessor(c_id2)->data->getCustomerID();
     
-
-    // ok fhmt
+    // wen el seg?
     club_members_tree.addExtra(id2, amount); 
     club_members_tree.addExtra(id1, -amount); 
 

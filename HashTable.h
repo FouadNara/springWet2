@@ -30,7 +30,6 @@ class HashTable
     int getSize() const;
     double getLoadFactor() const;
 
-// ana day3a
     bool isCompressed() const;
     Customer* search(int customerID) const;
 
