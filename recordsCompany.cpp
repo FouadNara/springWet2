@@ -127,7 +127,6 @@ StatusType RecordsCompany :: makeMember(int c_id)
     
     customer_ptr->makeMember();
 
-    // we should update undeserved_prize here
     //adding undeserved prize:
     double undeservedPrize = club_members_tree.calcExtra(customer_ptr);
     customer_ptr->setUndeservedPrize(undeservedPrize);
@@ -188,9 +187,11 @@ StatusType RecordsCompany :: addPrize(int c_id1,int c_id2,double amount)
 
     int id1 = club_members_tree.findPredecessor(c_id1)->data->getCustomerID();
     int id2 = club_members_tree.findPredecessor(c_id2)->data->getCustomerID();
+    
 
-    club_members_tree.addExtra(id2, amount);
-    club_members_tree.addExtra(id1, -amount);
+    // ok fhmt
+    club_members_tree.addExtra(id2, amount); 
+    club_members_tree.addExtra(id1, -amount); 
 
     return StatusType :: SUCCESS;
 } 

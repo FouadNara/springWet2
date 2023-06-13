@@ -1,0 +1,25 @@
+#ifndef Costumer_H_
+#define Costumer_H_
+
+#include <math.h>
+#include <iostream>
+#include <stdbool.h>
+
+class Costumer
+{
+    public: 
+        Costumer(){}
+        ~Costumer();
+
+    private:
+    int costumer_id;
+    int expenses;
+    bool isMember;
+
+
+
+        
+       
+};
+
+#endif  // Costumer_H_
