@@ -184,11 +184,37 @@ StatusType RecordsCompany :: addPrize(int c_id1,int c_id2,double amount)
     {
         return StatusType :: INVALID_INPUT;
     }
+    if(club_members_tree.getSize() == 0) //fsh 7vre mo3don
+    {
+        return StatusType::SUCCESS;
+    }
 
-    int id1 = club_members_tree.findPredecessor(c_id1)->data->getCustomerID();
-    int id2 = club_members_tree.findPredecessor(c_id2)->data->getCustomerID();
-    
-    // wen el seg?
+    AVLNode* minNode = club_members_tree.getMinNode();
+    AVLNode* customer1Node;
+    AVLNode* customer2Node;
+
+    if(c_id2 <= minNode->getID())//mnswish eshe
+    {
+        return StatusType::SUCCESS;
+    }
+    customer2Node = club_members_tree.findPredecessor(c_id2);
+    int id2 = customer2Node->data->getCustomerID();
+
+    if(c_id1 <= minNode->getID())//mnzid prize mn minimum l7det id2
+    {
+        club_members_tree.addExtra(id2, amount);
+        return StatusType::SUCCESS;
+    }
+    customer1Node = club_members_tree.findPredecessor(c_id1);
+    int id1 = customer1Node->data->getCustomerID();
+
+    // if(id2 == c_id2)
+    // {
+    //     //ymkn had leshe bsir bs iza c_id2 hu el minimum 3shan id1 < id2
+    //     //ino daymn id1 < id2 fa iza id2 == c_id2 y3ne fsh predecessor...
+    //     return StatusType::SUCCESS;
+    // }
+
     club_members_tree.addExtra(id2, amount); 
     club_members_tree.addExtra(id1, -amount); 
 
@@ -215,6 +241,11 @@ Output_t<double> RecordsCompany :: getExpenses(int c_id)
     double prizeAmount = club_members_tree.calcExtra(customer);
     double undeservedPrize = customer->getUndeservedPrize();
     double expenses = customer->getExpenses() - prizeAmount + undeservedPrize;
+
+    //bttl fe error bl addPrize
+    //bs sar fe error bl getExpenses (ymkn mn lglgulim)
+    //wfe error blgetPlace :)
+    
 
     return Output_t<double>(expenses);
 }

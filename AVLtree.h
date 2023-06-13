@@ -226,8 +226,7 @@ using std::endl;
         {
             addExtraAux(root, customerID, amount); //customerID should exist in tree!
         }
-        //good morning
-// :)
+
         void addExtraAux(AVLNode *tree, int id, double amount) 
         { 
             int rightTurns = 0;
