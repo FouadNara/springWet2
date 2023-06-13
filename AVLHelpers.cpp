@@ -56,8 +56,13 @@ int absNum(int num)
                                getHeightAux(new_root->right_son)) + 1;
 
         //Update extras
+        double newRoot_old = new_root->extra;
         new_root->extra += root->extra;
-        root->extra = 0;
+        root->extra = -newRoot_old;
+        if(root->left_son)
+        {
+            root->left_son->extra += newRoot_old;
+        }
 
         return new_root;
     }
@@ -93,7 +98,14 @@ int absNum(int num)
                                getHeightAux(new_root->right_son)) + 1;
 
         //Update extras
+        double newRoot_old = new_root->extra;
         new_root->extra += root->extra;
+        root->extra = -newRoot_old;
+        if(root->right_son)
+        {
+            root->right_son->extra += newRoot_old;
+        }
+        
         
         return new_root;
     }
