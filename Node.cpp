@@ -42,8 +42,9 @@ invertedNode* invertedNode :: findRoot()
 
     while(temp!=root)
     {
+        int cur = temp->getHeight();
         temp->setHeight(sumHeights);
-        sumHeights -= temp->getHeight();
+        sumHeights -= cur;
 
         // int cur_nodes = temp->getTotalNodes();
         // int cur_records = temp->getTotalRecords();
