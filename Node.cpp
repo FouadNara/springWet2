@@ -46,14 +46,8 @@ invertedNode* invertedNode :: findRoot()
         temp->setHeight(sumHeights);
         sumHeights -= cur;
 
-        // int cur_nodes = temp->getTotalNodes();
-        // int cur_records = temp->getTotalRecords();
-
         invertedNode* tempParent = temp->getParent();
         temp->setParent(root);
-        
-        // tempParent->decreaseNodes(cur_nodes);
-        // tempParent->decreaseRecords(cur_records);
         
         temp = tempParent;
     }
@@ -104,16 +98,6 @@ int invertedNode :: getColumn() const
 void invertedNode :: increaseHeight(int extra)
 {
     height += extra;
-}
-
-void invertedNode :: decreaseNodes(int num)
-{
-    total_nodes -= num;
-}
-
-void invertedNode :: decreaseRecords(int num)
-{
-    total_records -= num;
 }
 
 void invertedNode :: setColumn(int value)
